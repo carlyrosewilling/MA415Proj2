@@ -545,3 +545,143 @@ GB.AirSea <- ggplot(data = GB) + geom_point(mapping = aes(x = sea_temp, y = air_
 # gridExtra Version of Plots
 
 grid.arrange(CM.AirSea, MR.AirSea, MG.AirSea, GB.AirSea, ncol=2)
+
+#Descriptive Statistics 
+#Each descriptive statistics block contains a summary statement to retrieve the 
+#minumum, maximum, mean, and median. The sd() argument produces the standard deviation
+#and the cor() finds the correlation between the air_temp and sea_temp for the given block
+
+#descriptive statistics for Cape May (all years)
+summary(CM$air_temp)
+sd(CM$air_temp, na.rm=TRUE)
+summary(CM$sea_temp)
+sd(CM$sea_temp, na.rm=TRUE)
+cor(CM$air_temp, CM$sea_temp, use = "complete.obs") 
+
+#descriptive statistics for Cape May (1984)
+
+CM1984 <- CM %>% filter(date_time >= as.Date("1984-01-01") & 
+                          date_time <= as.Date("1984-12-31"))
+#this filter statement takes data only from the first complete year of available data,
+#and creates a new corresponding variable so that the first year can be compared to the most
+#recent year of available data
+
+summary(CM1984$air_temp)
+sd(CM1984$air_temp, na.rm=TRUE)
+summary(CM1984$sea_temp)
+sd(CM1984$sea_temp, na.rm=TRUE)
+cor(CM1984$air_temp, CM1984$sea_temp, use = "complete.obs") 
+
+#descriptive statistics for Cape May (2015)
+CM2015 <- CM %>% filter(date_time >= as.Date("2015-01-01") & 
+                          date_time <= as.Date("2015-12-31"))
+#this filter statement takes data only from the most recent complete year of data
+#and creates a new corresponding variable so that the most recent year can be compared to the
+#first year of available data
+summary(CM2015$air_temp)
+sd(CM2015$air_temp, na.rm=TRUE)
+summary(CM2015$sea_temp)
+sd(CM2015$sea_temp, na.rm=TRUE)
+cor(CM2015$air_temp, CM2015$sea_temp, use = "complete.obs") 
+
+#Cape May T-Test
+#Using the previously created variables, T-Tests are run for difference in means in both
+#air temperature and sea temperature. This translates to seeing if there is a significant 
+#difference in temperature between the first year and the most recent year
+
+t.test(CM2015$air_temp, CM1984$air_temp)
+t.test(CM2015$sea_temp, CM1984$sea_temp)
+
+
+#The code described above is repeated for all of the buoys.
+#descriptive statistics for Molasses Reef (all years)
+summary(MR$air_temp)
+sd(MR$air_temp, na.rm=TRUE)
+summary(MR$sea_temp)
+sd(MR$sea_temp, na.rm=TRUE)
+cor(MR$air_temp, MR$sea_temp, use = "complete.obs")
+
+#descriptive statistics for Molasses Reef (1987)
+MR1988 <- MR %>% filter(date_time >= as.Date("1988-01-01") & 
+                          date_time <= as.Date("1988-12-31"))
+summary(MR1988$air_temp)
+sd(MR1988$air_temp, na.rm=TRUE)
+summary(MR1988$sea_temp)
+sd(MR1988$sea_temp, na.rm=TRUE)
+cor(MR1988$air_temp, MR1988$sea_temp, use = "complete.obs") 
+
+
+#descriptive statistics for Molasses Reef (2015)
+MR2015 <- MR %>% filter(date_time >= as.Date("2015-01-01") & 
+                          date_time <= as.Date("2015-12-31"))
+summary(MR2015$air_temp)
+sd(MR2015$air_temp, na.rm=TRUE)
+summary(MR2015$sea_temp)
+sd(MR2015$sea_temp, na.rm=TRUE)
+cor(MR2015$air_temp, MR2015$sea_temp, use = "complete.obs") 
+
+#Molasses Reef T-Test
+t.test(MR2015$air_temp, MR1988$air_temp)
+t.test(MR2015$sea_temp, MR1988$sea_temp)
+
+
+#descriptive statistics for Georges Bank (all years)
+summary(GB$air_temp)
+sd(GB$air_temp, na.rm=TRUE)
+summary(GB$sea_temp)
+sd(GB$sea_temp, na.rm=TRUE)
+cor(GB$air_temp, GB$sea_temp, use = "complete.obs") 
+
+
+#descriptive statistics for Georges Bank (1985)
+GB1985 <- GB %>% filter(date_time >= as.Date("1985-01-01") & 
+                          date_time <= as.Date("1985-12-31"))
+summary(GB1985$air_temp)
+sd(GB1985$air_temp, na.rm=TRUE)
+summary(GB1985$sea_temp)
+sd(GB1985$sea_temp, na.rm=TRUE)
+cor(GB1985$air_temp, GB1985$sea_temp, use = "complete.obs") 
+
+#descriptive statistics for Georges Bank (2015)
+GB2015 <- GB %>% filter(date_time >= as.Date("2015-01-01") & 
+                          date_time <= as.Date("2015-12-31"))
+summary(GB2015$air_temp)
+sd(GB2015$air_temp, na.rm=TRUE)
+summary(GB2015$sea_temp)
+sd(GB2015$sea_temp, na.rm=TRUE)
+cor(GB2015$air_temp, GB2015$sea_temp, use = "complete.obs")
+
+#Georges Bank T-Test
+t.test(GB2015$air_temp, GB1985$air_temp)
+t.test(GB2015$sea_temp, GB1985$sea_temp)
+
+
+#descriptive statistics for Mid Gulf (all years)
+summary(MG$air_temp)
+sd(MG$air_temp, na.rm=TRUE)
+summary(MG$sea_temp)
+sd(MG$sea_temp, na.rm=TRUE)
+cor(MG$air_temp, MG$sea_temp, use = "complete.obs") 
+
+#descriptive statistics for Mid Gulf (1984)
+MG1984 <- MG %>% filter(date_time >= as.Date("1984-01-01") & 
+                          date_time <= as.Date("1984-12-31"))
+summary(MG1984$air_temp)
+sd(MG1984$air_temp, na.rm=TRUE)
+summary(MG1984$sea_temp)
+sd(MG1984$sea_temp, na.rm=TRUE)
+cor(MG1984$air_temp, MG1984$sea_temp, use = "complete.obs") 
+
+#descriptive statistics for Mid Gulf (2015)
+MG2015 <- MG %>% filter(date_time >= as.Date("2015-01-01") & 
+                          date_time <= as.Date("2015-12-31"))
+summary(MG2015$air_temp)
+sd(MG2015$air_temp, na.rm=TRUE)
+summary(MG2015$sea_temp)
+sd(MG2015$sea_temp, na.rm=TRUE)
+cor(MG2015$air_temp, MG2015$sea_temp, use = "complete.obs") 
+
+#Mid Gulf T-Test
+t.test(MG2015$air_temp, MG1984$air_temp)
+t.test(MG2015$sea_temp, MG1984$sea_temp)
+
