@@ -1,0 +1,195 @@
+---
+title: 'Bouys and Data Cleaning: Report'
+author: "Melody Shaff, Brian Clare, Elise Roche, and Carly Rose Willing"
+date: "November 5, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Map of All Buoy Locations
+![](https://imgur.com/qg3gL0l.png)
+
+
+# Choice of Buoy Locations
+
+We examined the NDBC NOAA buoys around the eastern coast of the United States and Canada and found 4 locations that met our criteria of having historical data going back to the 1980s and being fairly well-spaced geographically. From south to North, our buoys are: Mid Gulf of Mexico, Molasses Reef Florida, Cape May New Jersey and Georges Bank off the coast of Cape Cod.
+
+
+# Report on Data Cleaning
+
+  Our raw buoy data was not ready for exploratory data analysis. The data had 14 columns and thousands of observations, many of which were superfluous for what we were focusing on for this project. Thus, our first step was to clean the data.
+  In order to clean the data, we first needed to read the data into R. As we did not want to individually read in over 30 urls and we recognized the urls for each location differed by year only, we were able to create strings of the first half and second half of the url which remained consistent within a location. We used this to read in each location's data in a loop. Inside the loop we began the cleaning process. 
+  First, we made sure all of the years were presented by 4 digit integers (as data before 1998 was represented by the last two digits, ex. 87 rather than 1987). To do this we needed to make the year a string and then change it back into a number. We then made sure all the rest of our data was in its numeric form, rather than represented as strings. Because early years were missing a minutes column, we added in the minutes for those as 00.  
+  Second, we removed columns of no interest to us. For the purposes of this project we needed only: year (YYYY), month (MM), day (DD), hour (hh), minute (mm), air temperature (ATMP), and water temperature (WTMP). So, we selected only these columns. 
+  Third, we needed a date column. Instead of the messy set of five columns representing time and date we transformed these (using make_datetime()) into a date object for each observation. 
+  Fourth, we changed our temporary 'file' into the main data frame for this location. We used the temporary file to allow the code to be replicated, largely unchanged, between locations. However, at this point we are ready to establish the main data frame, unique to each location, and finish up our cleaning. Thus, we renamed file with the abbreviated notation for the location and bound that location's data into the new data frame.
+  Fifth, we filtered out observations so we have only one for each day. Whenever possible we chose entries at noon, minute 0, but some instances only had minutes recorded at 50 and in those cases we selected 11:50 AM instead as this is closer to noon than 12:50 PM. We filtered for one entry, at (or close to) noon, per day.
+  Sixth, as we now have a date object for each observation, we could make the new and necessary column for time difference (referring to the time, in number of seconds, from our data to noon). We did this simply by subtracting noon from the time at which the buoy data for each particular observation was taken.
+  Seventh, we needed to filter for the columns we care about once more. Now that we've simplified the presentation of the date we can select only this one column, instead of the initial five. We also need to include our new time difference column. Thus, our final selected columns are: date (date), time difference from noon (timediff), air temperature (ATMP), and water temperature (WTMP). 
+  Eighth, we want to re-code our NAs to register as such. Thus, we used apply() to address entries of 999.0 and 99.0 to appear instead as NA. 
+  Ninth, we changed our column names to make them more readable and added in necessary new columns. We changed ATMP to Air Temp, WTMP to Sea Temp, date to Date, and timediff to Time from Noon. Next, we added in a column for our group number (1), the type of data we used (buoy data), the latitude, and the longitude of the location. 
+  Finally, we reordered the columns. As the group compiling all of the groups' data sets needs uniformity we made sure to re-order our columns last to ensure that were easy to use for the next group. Thus, the columns are now: 1) Group, 2) Type, 3) Date, 4) Time from Noon, 5) Lat, 6) Long, 7) Sea Temp, 8) Air Temp.
+  We used this same procedure for each of our locations' data. Our very last step was to put the cleaned data frames into an xlsx file. We did this by writing the file with the first location's data and adding the other three locations one by one as new sheets. 
+
+# Descriptive Statistics for Each Buoy
+```{r, warning=FALSE, results = FALSE}
+#descriptive statistics for Cape May
+summary(CM$air_temp)
+sd(CM$air_temp, na.rm=TRUE)
+summary(CM$sea_temp)
+sd(CM$sea_temp, na.rm=TRUE)
+cor(CM$air_temp, CM$sea_temp, use = "complete.obs") 
+
+#descriptive statistics for Molasses Reef
+summary(MR$air_temp)
+sd(MR$air_temp, na.rm=TRUE)
+summary(MR$sea_temp)
+sd(MR$sea_temp, na.rm=TRUE)
+cor(MR$air_temp, MR$sea_temp, use = "complete.obs")
+
+
+#descriptive statistics for Georges Bank
+summary(GB$air_temp)
+sd(GB$air_temp, na.rm=TRUE)
+summary(GB$sea_temp)
+sd(GB$sea_temp, na.rm=TRUE)
+cor(GB$air_temp, GB$sea_temp, use = "complete.obs") 
+
+
+#descriptive statistics for Mid Gulf
+summary(MG$air_temp)
+sd(MG$air_temp, na.rm=TRUE)
+summary(MG$sea_temp)
+sd(MG$sea_temp, na.rm=TRUE)
+cor(MG$air_temp, MG$sea_temp, use = "complete.obs") 
+```
+
+## Descriptive Statistics For Cape May
+
+Variable         | Minimum | Median | Mean | Standard Deviation | Maximum | Range | Correlation |
+:----------------|:-------:|:------:|:----:|:------------------:|:-------:|:-----:|:-----------:|
+Air Temperature  | -14.20  |  13.40 | 13.20|    7.864           |  27.10  | 41.3 | 0.9228646
+Sea Temperature  | 0.50    | 14.20  | 14.31|    6.874           |  26.90  | 26.4 |
+
+
+Table: Cape May Descriptive Statistics for All Years
+
+Variable         | Minimum | Median | Mean | Standard Deviation | Maximum | Range | Correlation |
+:----------------|:-------:|:------:|:----:|:------------------:|:-------:|:-----:|:-----------:|
+Air Temperature  | -8.60   |  14.30 | 12.91|    7.912           |  25.20  |33.8   | 0.9269352
+Sea Temperature  | 3.50    | 13.50  | 13.21|    6.737           |  25.60  | 22.1  |
+
+Table: Cape May Descriptive Statistics for 1984
+
+Variable         | Minimum | Median | Mean | Standard Deviation | Maximum | Range | Correlation |
+:----------------|:-------:|:------:|:----:|:------------------:|:-------:|:-----:|:-----------:|
+Air Temperature  | -8.0    |  14.5 | 13.9  |    8.653          |  26.3  |34.3   | 0.9455966
+Sea Temperature  | 0.5     | 15.4  | 14.6  |    7.948          |  26.40  | 25.9 |
+
+Table: Cape May Descriptive Statistics for 2015
+
+Variables of Comparison |  t-value  | p-value|
+:-----------------------|:---------:|:------:|
+Air Temperature 1984 vs 2015| 1.5425 | 0.1234  |
+Sea Temperature 1984 vs 2015| 2.4904 | 0.013  |
+
+Table: T-Test for Difference of Means for Cape May
+
+## Descriptive Statistics For Molasses Reef
+
+Variable         | Minimum | Median | Mean | Standard Deviation | Maximum | Range | Correlation |
+:----------------|:-------:|:------:|:----:|:------------------:|:-------:|:-----:|:-----------:|
+Air Temperature  | 2.60    |  25.30 | 24.68|    3.972           |  30.70  | 28.1 | 0.81659
+Sea Temperature  | 18.00   | 26.40  | 26.49|    2.506           |  31.20  | 13.2 |
+
+
+Table: Molasses Reef Descriptive Statistics for All Years
+
+Variable         | Minimum | Median | Mean | Standard Deviation | Maximum | Range | Correlation |
+:----------------|:-------:|:------:|:----:|:------------------:|:-------:|:-----:|:-----------:|
+Air Temperature  | 9.80    |  24.50 | 24.08|    4.077           |  29.00  | 19.2   | 0.8271741
+Sea Temperature  | 20.5    | 26.10  | 25.98|    2.435           |  29.60  | 9.1 |
+
+Table: Molasses Reef Descriptive Statistics for 1988
+
+Variable         | Minimum | Median | Mean | Standard Deviation | Maximum | Range | Correlation |
+:----------------|:-------:|:------:|:----:|:------------------:|:-------:|:-----:|:-----------:|
+Air Temperature  | 8.30    |  26.50 | 25.61|    3.516          |  29.90   |  21.6 | 0.8482789
+Sea Temperature  | 19.9   | 27.30  | 27.20 |    2.419          |  30.90   |  11.0 |
+
+Table: Molasses Reef Descriptive Statistics for 2015
+
+Variables of Comparison |  t-value  | p-value|
+:-----------------------|:---------:|:------:|
+Air Temperature 1988 vs 2015| 5.41  | <.0001  |
+Sea Temperature 1988 vs 2015| 6.71 | <.0001  |
+
+Table: T-Test for Difference of Means for Molasses Reef
+
+##Descriptive Statistics for Georges Bank
+
+Variable         | Minimum | Median | Mean | Standard Deviation | Maximum | Range | Correlation |
+:----------------|:-------:|:------:|:----:|:------------------:|:-------:|:-----:|:-----------:|
+Air Temperature  | -11.20  |  10.70 | 10.69|    6.148           |  25.80  | 37.0 | 0.87634
+Sea Temperature  | 0.40    | 10.10  | 10.72|    5.216           |  27.40  | 27.0 |
+
+
+Table: Georges Bank Descriptive Statistics for All Years
+
+Variable         | Minimum | Median | Mean | Standard Deviation | Maximum | Range | Correlation |
+:----------------|:-------:|:------:|:----:|:------------------:|:-------:|:-----:|:-----------:|
+Air Temperature  | -4.10   |  11.20 | 11.02|    5.933           |  24.80  | 28.9  | 0.8457552
+Sea Temperature  | 3.60    | 10.35  |10.70 |   5.038            |  23.40  | 19.7  |
+
+Table: Georges Bank Descriptive Statistics for 1985
+
+Variable         | Minimum | Median | Mean | Standard Deviation | Maximum | Range | Correlation |
+:----------------|:-------:|:------:|:----:|:------------------:|:-------:|:-----:|:-----------:|
+Air Temperature  | 4.30    |  15.60 | 15.24|    5.116           |  25.80  | 21.5  | 0.8811325
+Sea Temperature  | 4.80    | 14.60  | 14.78|    5.251           |  25.40  | 20.6  |
+
+Table: Georges Bank Descriptive Statistics for 2015
+
+Variables of Comparison |  t-value  | p-value|
+:-----------------------|:---------:|:------:|
+Air Temperature 1985 vs 2015| 8.87 | <.0001  |
+Sea Temperature 1985 vs 2015| 8.948 | <.0001  |
+
+Table: T-Test for Difference of Means for Georges Bank
+
+##Descriptive Statistics for Mid Gulf
+
+Variable         | Minimum | Median | Mean | Standard Deviation | Maximum | Range | Correlation |
+:----------------|:-------:|:------:|:----:|:------------------:|:-------:|:-----:|:-----------:|
+Air Temperature  | 7.50    |  25.10 | 24.71|    3.398           |  32.20  | 24.7 |0.84549
+Sea Temperature  | 19.8    | 26.30  | 26.20|    2.696           |  31.00  | 11.2 |
+
+
+Table: Mid Gulf Descriptive Statistics for All Years
+
+Variable         | Minimum | Median | Mean | Standard Deviation | Maximum | Range | Correlation |
+:----------------|:-------:|:------:|:----:|:------------------:|:-------:|:-----:|:-----------:|
+Air Temperature  | 13.50   |  23.80 | 23.52|    2.918          |  28.20  |14.7   | 0.7219845
+Sea Temperature  | 20.30    | 25.60  | 25.68|   2.501          |  29.80  | 9.5  |
+
+Table: Mid Gulf Descriptive Statistics for 1984
+
+Variable         | Minimum | Median | Mean | Standard Deviation | Maximum | Range | Correlation |
+:----------------|:-------:|:------:|:----:|:------------------:|:-------:|:-----:|:-----------:|
+Air Temperature  | 16.80   |  26.80 | 25.85|   2.905           |  29.40  |12.6   | 0.8409042
+Sea Temperature  | 22.60   | 27.20  | 27.46|   1.881           |  30.50  | 7.9  |
+
+Table: Mid Gulf Descriptive Statistics for 2016
+
+Variables of Comparison |  t-value  | p-value|
+:-----------------------|:---------:|:------:|
+Air Temperature 1984 vs 2015| 9.79 | <.0001  |
+Sea Temperature 1984 vs 2015| 10.18 | <.0001  |
+
+Table: T-Test for Difference of Means for Mid Gulf
+
+# Report on the Descriptive Statistics
+
