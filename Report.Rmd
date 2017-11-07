@@ -185,7 +185,7 @@ Table: T-Test for Difference of Means for Mid Gulf
   
 \pagebreak
 
-# Data Visualization
+# Data Visualization (See Figure 2)
 
 ## Air Temperature and Sea Temperature Correlation For Each Location
 
