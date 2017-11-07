@@ -182,6 +182,8 @@ Table: T-Test for Difference of Means for Mid Gulf
   In order to accurately compare the changes in temperature from the first year to the most recent year, we ran t-tests for both sea temperature and air temperature. The corresponding t-values and p-values can be viewed in Tables 4, 8, 12, and 16. Interestingly enough, there was a signficiant difference in the mean temperatures for every variable, except for Cape May's air temperature. This is because climate change, particularly global warming, tends to affect ocean areas farther away from land, and closer to the equator. 
   
   As expected, the air temperatures and sea temperature for each region were highly correlated. The air and sea temperature for Molasses Reef and Mid Gulf were slightly lower. This may be due to a pervasive pattern of warm sea temperature, regardless of the air temperature. At times, a cool front may move through the region, but because it is short lived, there is not a significant impact on the corresponding sea temperature. Similarly, the range for sea temperatures is smaller than the range of temperatures for air temperature. This is because air temperature can fluctuate more rapidly before it dramatically affects the corresponding sea temperature.
+  
+\pagebreak
 
 # Data Visualization
 
