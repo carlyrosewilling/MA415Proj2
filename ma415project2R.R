@@ -7,6 +7,7 @@ library(tidyverse)
 library(stringr)
 library(lubridate)
 library(xlsx)
+library(gridExtra)
 
 # For Cape May
 # These sections of code will repeat for each location, so I'm only commenting once
