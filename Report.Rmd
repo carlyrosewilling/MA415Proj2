@@ -34,39 +34,6 @@ We examined the NDBC NOAA buoys around the eastern coast of the United States an
   Finally, we reordered the columns. As the group compiling all of the groups' data sets needs uniformity we made sure to re-order our columns last to ensure that were easy to use for the next group. Thus, the columns are now: 1) Group, 2) Type, 3) Date, 4) Time from Noon, 5) Lat, 6) Long, 7) Sea Temp, 8) Air Temp.
   We used this same procedure for each of our locations' data. Our very last step was to put the cleaned data frames into an xlsx file. We did this by writing the file with the first location's data and adding the other three locations one by one as new sheets. 
 
-# Descriptive Statistics for Each Buoy
-```{r, warning=FALSE, results = FALSE}
-#descriptive statistics for Cape May
-summary(CM$air_temp)
-sd(CM$air_temp, na.rm=TRUE)
-summary(CM$sea_temp)
-sd(CM$sea_temp, na.rm=TRUE)
-cor(CM$air_temp, CM$sea_temp, use = "complete.obs") 
-
-#descriptive statistics for Molasses Reef
-summary(MR$air_temp)
-sd(MR$air_temp, na.rm=TRUE)
-summary(MR$sea_temp)
-sd(MR$sea_temp, na.rm=TRUE)
-cor(MR$air_temp, MR$sea_temp, use = "complete.obs")
-
-
-#descriptive statistics for Georges Bank
-summary(GB$air_temp)
-sd(GB$air_temp, na.rm=TRUE)
-summary(GB$sea_temp)
-sd(GB$sea_temp, na.rm=TRUE)
-cor(GB$air_temp, GB$sea_temp, use = "complete.obs") 
-
-
-#descriptive statistics for Mid Gulf
-summary(MG$air_temp)
-sd(MG$air_temp, na.rm=TRUE)
-summary(MG$sea_temp)
-sd(MG$sea_temp, na.rm=TRUE)
-cor(MG$air_temp, MG$sea_temp, use = "complete.obs") 
-```
-
 ## Descriptive Statistics For Cape May
 
 Variable         | Minimum | Median | Mean | Standard Deviation | Maximum | Range | Correlation |
