@@ -585,28 +585,37 @@ cor(MG.spring$air_temp, MG.spring$date_time, use = "complete.obs")
 cor(MG.summer$air_temp, MG.summer$date_time, use = "complete.obs")
 cor(MG.fall$air_temp, MG.fall$date_time, use = "complete.obs")
 
-# Data Visuals for Air and Sea Correlation
+# Data Visuals for Air Temp and Sea Temp Correlation
+
 # CM Air and Sea
 
-CM.AirSea <- ggplot(data = CM) + geom_point(mapping = aes(x = sea_temp, y = air_temp), color="lightblue") + 
-  labs(title="Cape May Air Temperature vs. Sea Temperature", x="Sea Temperature (°C)", y="Air Temperature (°C)")
+CM.AirSea <- ggplot(data = CM) + 
+  geom_point(mapping = aes(x = sea_temp, y = air_temp), color="lightblue") + 
+  labs(title="Cape May Air Temperature vs. Sea Temperature", 
+       x="Sea Temperature (°C)", y="Air Temperature (°C)")
 
 # MR Air and Sea
 
-MR.AirSea <- ggplot(data = MR) + geom_point(mapping = aes(x = sea_temp, y = air_temp), color="darkolivegreen1") + 
-  labs(title="Molasses Reef Air Temperature vs. Sea Temperature", x="Sea Temperature (°C)", y="Air Temperature (°C)")
+MR.AirSea <- ggplot(data = MR) + 
+  geom_point(mapping = aes(x = sea_temp, y = air_temp), color="darkolivegreen1") + 
+  labs(title="Molasses Reef Air Temperature vs. Sea Temperature", 
+       x="Sea Temperature (°C)", y="Air Temperature (°C)")
 
 # MG Air and Sea
 
-MG.AirSea <- ggplot(data = MG) + geom_point(mapping = aes(x = sea_temp, y = air_temp), color="lightpink1") + 
-  labs(title="Mid Gulf Air Temperature vs. Sea Temperature", x="Sea Temperature (°C)", y="Air Temperature (°C)")
+MG.AirSea <- ggplot(data = MG) + 
+  geom_point(mapping = aes(x = sea_temp, y = air_temp), color="lightpink1") + 
+  labs(title="Mid Gulf Air Temperature vs. Sea Temperature", 
+       x="Sea Temperature (°C)", y="Air Temperature (°C)")
 
 # GB Air and Sea
 
-GB.AirSea <- ggplot(data = GB) + geom_point(mapping = aes(x = sea_temp, y = air_temp), color="khaki") + 
-  labs(title="Georges Bank Air Temperature vs. Sea Temperature", x="Sea Temperature (°C)", y="Air Temperature (°C)")
+GB.AirSea <- ggplot(data = GB) + 
+  geom_point(mapping = aes(x = sea_temp, y = air_temp), color="khaki") + 
+  labs(title="Georges Bank Air Temperature vs. Sea Temperature", 
+       x="Sea Temperature (°C)", y="Air Temperature (°C)")
 
-# gridExtra Version of Plots
+# Make the Plots Readable and Comparable with gridExtra
 
 grid.arrange(CM.AirSea, MR.AirSea, MG.AirSea, GB.AirSea, ncol=2)
 
