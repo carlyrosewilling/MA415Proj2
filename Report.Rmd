@@ -181,10 +181,10 @@ Each of these plots demonstrates a positive correlation between air temperature 
   
 # Corresponding Visualizations
 
-![](https://imgur.com/a/pdZa9.png)
+![](https://i.imgur.com/o11R2dP.png)
 
-![](https://imgur.com/a/0CExe.png)
+![](https://i.imgur.com/GSBDbZt.png)
 
-![](https://imgur.com/a/sbc5v.png)
+![](https://i.imgur.com/VcPnAzt.png)
 
-![](https://imgur.com/a/EFmY0.png)
+![](https://i.imgur.com/ro62p3q.png)
