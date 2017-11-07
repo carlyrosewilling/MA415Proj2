@@ -183,7 +183,7 @@ Table: T-Test for Difference of Means for Mid Gulf
   
   As expected, the air temperatures and sea temperature for each region were highly correlated. The air and sea temperature for Molasses Reef and Mid Gulf were slightly lower. This may be due to a pervasive pattern of warm sea temperature, regardless of the air temperature. At times, a cool front may move through the region, but because it is short lived, there is not a significant impact on the corresponding sea temperature. Similarly, the range for sea temperatures is smaller than the range of temperatures for air temperature. This is because air temperature can fluctuate more rapidly before it dramatically affects the corresponding sea temperature.
 
-# Data Visualization
+# Data Visualization (See Figure 2)
 
 ## Air Temperature and Sea Temperature Correlation For Each Location
 
