@@ -2,7 +2,6 @@
 
 options(java.parameters = "- Xmx1024m")
 
-
 library(tidyverse)
 library(stringr)
 library(lubridate)
@@ -758,4 +757,3 @@ cor(MG2015$air_temp, MG2015$sea_temp, use = "complete.obs")
 #Mid Gulf T-Test
 t.test(MG2015$air_temp, MG1984$air_temp)
 t.test(MG2015$sea_temp, MG1984$sea_temp)
-
